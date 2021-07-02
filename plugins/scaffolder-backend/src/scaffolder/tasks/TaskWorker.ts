@@ -237,9 +237,9 @@ export class TaskWorker {
           });
 
           // Remove all temporary directories that were created when executing the action
-          for (const tmpDir of tmpDirs) {
-            await fs.remove(tmpDir);
-          }
+          // for (const tmpDir of tmpDirs) {
+          //   await fs.remove(tmpDir);
+          // }
 
           templateCtx.steps[step.id] = { output: stepOutputs };
 
@@ -297,9 +297,9 @@ export class TaskWorker {
         error: { name: error.name, message: error.message },
       });
     } finally {
-      if (workspacePath) {
-        await fs.remove(workspacePath);
-      }
+      // if (workspacePath) {
+      //   await fs.remove(workspacePath);
+      // }
     }
   }
 }

@@ -20,6 +20,7 @@ spec:
           title: Name
           type: string
           description: Unique name of the component
+          default: test-compononet
         description:
           title: Description
           type: string
@@ -28,6 +29,7 @@ spec:
           title: Owner
           type: string
           description: Owner of the component
+          default: backstage
           ui:field: OwnerPicker
           ui:options:
             allowedKinds: 
@@ -39,6 +41,7 @@ spec:
         repoUrl:
           title: Repository Location
           type: string
+          default: github.com?owner=mtlewis&repo=test
           ui:field: RepoUrlPicker
           ui:options:
             allowedHosts:
@@ -46,31 +49,31 @@ spec:
   steps:
     - id: template
       name: Fetch Skeleton + Template
-      action: fetch:cookiecutter
+      action: fetch:template
       input:
         url: ./skeleton
-        copyWithoutRender:
-          - .github/workflows/*
+        # copyWithoutRender:
+        #   - .github/workflows/*
         values:
           component_id: '{{ parameters.component_id }}'
           description: '{{ parameters.description }}'
           destination: '{{ parseRepoUrl parameters.repoUrl }}'
           owner: '{{ parameters.owner }}'
 
-    - id: publish
-      name: Publish
-      action: publish:github
-      input:
-        allowedHosts: ['github.com']
-        description: 'This is {{ parameters.component_id }}'
-        repoUrl: '{{ parameters.repoUrl }}'
+    # - id: publish
+    #   name: Publish
+    #   action: publish:github
+    #   input:
+    #     allowedHosts: ['github.com']
+    #     description: 'This is {{ parameters.component_id }}'
+    #     repoUrl: '{{ parameters.repoUrl }}'
 
-    - id: register
-      name: Register
-      action: catalog:register
-      input:
-        repoContentsUrl: '{{ steps.publish.output.repoContentsUrl }}'
-        catalogInfoPath: '/catalog-info.yaml'
+    # - id: register
+    #   name: Register
+    #   action: catalog:register
+    #   input:
+    #     repoContentsUrl: '{{ steps.publish.output.repoContentsUrl }}'
+    #     catalogInfoPath: '/catalog-info.yaml'
 
   output:
     remoteUrl: '{{ steps.publish.output.remoteUrl }}'

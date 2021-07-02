@@ -72,6 +72,9 @@ export function createFetchTemplateAction(options: {
       const workDir = await ctx.createTemporaryDirectory();
       const templateDir = resolvePath(workDir, 'template');
 
+      ctx.logger.info(`Using working directory ${workDir}`);
+      ctx.logger.info(`Workspace path: ${ctx.workspacePath}`);
+
       // Finally move the template result into the task workspace
       const targetPath = ctx.input.targetPath ?? './';
       const outputPath = path.resolve(ctx.workspacePath, targetPath);

@@ -77,6 +77,7 @@ import {
   SignInPageProps,
   SignInResult,
 } from './types';
+import { AppServiceWorker } from './AppServiceWorker';
 
 export function generateBoundRoutes(bindRoutes: AppOptions['bindRoutes']) {
   const result = new Map<ExternalRouteRef, RouteRef | SubRouteRef>();
@@ -183,6 +184,7 @@ export class PrivateAppImpl implements BackstageApp {
   private readonly bindRoutes: AppOptions['bindRoutes'];
 
   private readonly identityApi = new AppIdentity();
+  private readonly serviceWorker = new AppServiceWorker(this.identityApi);
 
   constructor(options: FullAppOptions) {
     this.apis = options.apis;
@@ -193,6 +195,7 @@ export class PrivateAppImpl implements BackstageApp {
     this.configLoader = options.configLoader;
     this.defaultApis = options.defaultApis;
     this.bindRoutes = options.bindRoutes;
+    this.serviceWorker.install();
   }
 
   getPlugins(): BackstagePlugin<any, any>[] {

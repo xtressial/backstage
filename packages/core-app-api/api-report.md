@@ -6,6 +6,8 @@
 
 import { AlertApi } from '@backstage/core-plugin-api';
 import { AlertMessage } from '@backstage/core-plugin-api';
+import { AnalyticsApi } from '@backstage/core-plugin-api';
+import { AnalyticsTracker } from '@backstage/core-plugin-api';
 import { AnyApiFactory } from '@backstage/core-plugin-api';
 import { AnyApiRef } from '@backstage/core-plugin-api';
 import { ApiFactory } from '@backstage/core-plugin-api';
@@ -27,6 +29,7 @@ import { ConfigReader } from '@backstage/config';
 import { DiscoveryApi } from '@backstage/core-plugin-api';
 import { ErrorApi } from '@backstage/core-plugin-api';
 import { ErrorContext } from '@backstage/core-plugin-api';
+import { ExtensionAwareAnalyticsEvent } from '@backstage/core-plugin-api';
 import { ExternalRouteRef } from '@backstage/core-plugin-api';
 import { FeatureFlag } from '@backstage/core-plugin-api';
 import { FeatureFlagsApi } from '@backstage/core-plugin-api';
@@ -61,6 +64,17 @@ export class AlertApiForwarder implements AlertApi {
     alert$(): Observable<AlertMessage>;
     // (undocumented)
     post(alert: AlertMessage): void;
+    }
+
+// @public
+export class AnalyticsApiForwarder implements AnalyticsApi {
+    // (undocumented)
+    event$(): Observable<ExtensionAwareAnalyticsEvent>;
+    // (undocumented)
+    getTrackerForExtension(extension: {
+        pluginId: string;
+        componentName: string;
+    }): AnalyticsTracker;
     }
 
 // @public (undocumented)

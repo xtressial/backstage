@@ -22,6 +22,6 @@ createDevApp()
   .addPage({
     element: <HomeIndexPage />,
     title: 'Root Page',
-    path: '/home',
+    path: '/',
   })
   .render();

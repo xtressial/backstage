@@ -222,7 +222,7 @@ catalog:
     #
     # File locations are relative to the current working directory of the
     # backend, for example packages/backend/.
-
+    
     # Backstage example components
     - type: file
       target: ../catalog-model/examples/all-components.yaml
